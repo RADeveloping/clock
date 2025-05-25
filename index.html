@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital Clock</title>
+  <title>Digital Clock with Balanced Noise</title>
   <style>
     body {
       margin: 0;
@@ -11,6 +11,7 @@
       color: white;
       font-family: "Courier New", monospace;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
@@ -18,11 +19,27 @@
     #clock {
       font-size: 10vw;
       text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div id="clock">00:00:00</div>
+  <button onclick="toggleSound()">Toggle Sound</button>
+
+  <audio id="noise" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/08/25/audio_3e80d2d315.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     function updateClock() {
@@ -35,6 +52,18 @@
 
     updateClock();
     setInterval(updateClock, 1000);
+
+    const noise = document.getElementById('noise');
+    let isPlaying = false;
+
+    function toggleSound() {
+      if (isPlaying) {
+        noise.pause();
+      } else {
+        noise.play();
+      }
+      isPlaying = !isPlaying;
+    }
   </script>
 </body>
 </html>
